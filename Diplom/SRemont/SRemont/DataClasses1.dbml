@@ -1,0 +1,172 @@
+﻿<?xml version="1.0" encoding="utf-8"?><Database Name="SR" Class="DataClasses1DataContext" xmlns="http://schemas.microsoft.com/linqtosql/dbml/2007">
+  <Connection Mode="AppSettings" ConnectionString="Data Source=DESKTOP-SENO1JC;Initial Catalog=SR;Integrated Security=True" SettingsObjectName="SRemont.Properties.Settings" SettingsPropertyName="SRConnectionString" Provider="System.Data.SqlClient" />
+  <Table Name="dbo.Detal" Member="Detal">
+    <Type Name="Detal">
+      <Column Name="id_det" Type="System.Int32" DbType="Int NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
+      <Column Name="id_gdet" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="naim_det" Type="System.String" DbType="VarChar(50)" CanBeNull="true" />
+      <Column Name="col" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="cena" Type="System.Decimal" DbType="Decimal(18,2)" CanBeNull="true" />
+      <Column Name="izg" Type="System.String" DbType="VarChar(50)" CanBeNull="true" />
+      <Column Name="garant" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Association Name="Detal_ZakDet" Member="ZakDet" ThisKey="id_det" OtherKey="id_det" Type="ZakDet" />
+      <Association Name="GDetal_Detal" Member="GDetal" ThisKey="id_gdet" OtherKey="id_gdet" Type="GDetal" IsForeignKey="true" DeleteRule="CASCADE" DeleteOnNull="true" />
+    </Type>
+  </Table>
+  <Table Name="dbo.GDetal" Member="GDetal">
+    <Type Name="GDetal">
+      <Column Name="id_gdet" Type="System.Int32" DbType="Int NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
+      <Column Name="naim_gdet" Type="System.String" DbType="VarChar(50)" CanBeNull="true" />
+      <Association Name="GDetal_Detal" Member="Detal" ThisKey="id_gdet" OtherKey="id_gdet" Type="Detal" />
+    </Type>
+  </Table>
+  <Table Name="dbo.Klient" Member="Klient">
+    <Type Name="Klient">
+      <Column Name="id_kl" Type="System.Int32" DbType="Int NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
+      <Column Name="fio_kl" Type="System.String" DbType="VarChar(50)" CanBeNull="true" />
+      <Column Name="adres" Type="System.String" DbType="VarChar(50)" CanBeNull="true" />
+      <Column Name="tel" Type="System.String" DbType="VarChar(50)" CanBeNull="true" />
+      <Column Name="email" Type="System.String" DbType="VarChar(50)" CanBeNull="true" />
+      <Association Name="Klient_Zakaz" Member="Zakaz" ThisKey="id_kl" OtherKey="id_kl" Type="Zakaz" />
+    </Type>
+  </Table>
+  <Table Name="dbo.ModelUstr" Member="ModelUstr">
+    <Type Name="ModelUstr">
+      <Column Name="id_mu" Type="System.Int32" DbType="Int NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
+      <Column Name="naim_mu" Type="System.String" DbType="VarChar(50)" CanBeNull="true" />
+      <Column Name="id_tu" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Association Name="ModelUstr_Zakaz" Member="Zakaz" ThisKey="id_mu" OtherKey="id_mu" Type="Zakaz" />
+      <Association Name="TipUstr_ModelUstr" Member="TipUstr" ThisKey="id_tu" OtherKey="id_tu" Type="TipUstr" IsForeignKey="true" DeleteRule="CASCADE" />
+    </Type>
+  </Table>
+  <Table Name="dbo.Rabota" Member="Rabota">
+    <Type Name="Rabota">
+      <Column Name="id_rab" Type="System.Int32" DbType="Int NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
+      <Column Name="naim_rab" Type="System.String" DbType="VarChar(50)" CanBeNull="true" />
+      <Column Name="stoim" Type="System.Decimal" DbType="Decimal(18,2)" CanBeNull="true" />
+      <Association Name="Rabota_ZakRab" Member="ZakRab" ThisKey="id_rab" OtherKey="id_rab" Type="ZakRab" />
+    </Type>
+  </Table>
+  <Table Name="dbo.Sotrudnik" Member="Sotrudnik">
+    <Type Name="Sotrudnik">
+      <Column Name="id_sotr" Type="System.Int32" DbType="Int NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
+      <Column Name="fio_sotr" Type="System.String" DbType="VarChar(50)" CanBeNull="true" />
+      <Column Name="login" Type="System.String" DbType="VarChar(10)" CanBeNull="true" />
+      <Column Name="pass" Type="System.String" DbType="VarChar(10)" CanBeNull="true" />
+      <Column Name="dost" Type="System.String" DbType="VarChar(20)" CanBeNull="true" />
+      <Association Name="Sotrudnik_Zakaz" Member="Zakaz" ThisKey="id_sotr" OtherKey="id_sotr" Type="Zakaz" />
+    </Type>
+  </Table>
+  <Table Name="dbo.StatZakaz" Member="StatZakaz">
+    <Type Name="StatZakaz">
+      <Column Name="id_sz" Type="System.Int32" DbType="Int NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
+      <Column Name="naim_sz" Type="System.String" DbType="VarChar(50)" CanBeNull="true" />
+      <Association Name="StatZakaz_Zakaz" Member="Zakaz" ThisKey="id_sz" OtherKey="id_sz" Type="Zakaz" />
+    </Type>
+  </Table>
+  <Table Name="dbo.TipUstr" Member="TipUstr">
+    <Type Name="TipUstr">
+      <Column Name="id_tu" Type="System.Int32" DbType="Int NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
+      <Column Name="naim_tu" Type="System.String" DbType="VarChar(50)" CanBeNull="true" />
+      <Association Name="TipUstr_ModelUstr" Member="ModelUstr" ThisKey="id_tu" OtherKey="id_tu" Type="ModelUstr" />
+    </Type>
+  </Table>
+  <Table Name="dbo.Zakaz" Member="Zakaz">
+    <Type Name="Zakaz">
+      <Column Name="id_zak" Type="System.Int32" DbType="Int NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
+      <Column Name="ser" Type="System.String" DbType="VarChar(50)" CanBeNull="true" />
+      <Column Name="id_mu" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="id_kl" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="id_sz" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="date_p" Type="System.DateTime" DbType="Date" CanBeNull="true" />
+      <Column Name="date_v" Type="System.DateTime" DbType="Date" CanBeNull="true" />
+      <Column Name="stoim_det" Type="System.Decimal" DbType="Decimal(18,2)" CanBeNull="true" />
+      <Column Name="stoim_rab" Type="System.Decimal" DbType="Decimal(18,2)" CanBeNull="true" />
+      <Column Name="skidka" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="ob_stoim" Type="System.Decimal" DbType="Decimal(18,2)" CanBeNull="true" />
+      <Column Name="oplata" Type="System.Boolean" DbType="Bit" CanBeNull="true" />
+      <Column Name="id_sotr" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="neispr" Type="System.String" DbType="VarChar(MAX)" CanBeNull="true" />
+      <Column Name="kompl" Type="System.String" DbType="VarChar(MAX)" CanBeNull="true" />
+      <Column Name="prim" Type="System.String" DbType="VarChar(MAX)" CanBeNull="true" />
+      <Association Name="Zakaz_ZakDet" Member="ZakDet" ThisKey="id_zak" OtherKey="id_zak" Type="ZakDet" />
+      <Association Name="Zakaz_ZakRab" Member="ZakRab" ThisKey="id_zak" OtherKey="id_zak" Type="ZakRab" />
+      <Association Name="Klient_Zakaz" Member="Klient" ThisKey="id_kl" OtherKey="id_kl" Type="Klient" IsForeignKey="true" DeleteRule="CASCADE" />
+      <Association Name="ModelUstr_Zakaz" Member="ModelUstr" ThisKey="id_mu" OtherKey="id_mu" Type="ModelUstr" IsForeignKey="true" DeleteRule="CASCADE" />
+      <Association Name="Sotrudnik_Zakaz" Member="Sotrudnik" ThisKey="id_sotr" OtherKey="id_sotr" Type="Sotrudnik" IsForeignKey="true" DeleteRule="CASCADE" />
+      <Association Name="StatZakaz_Zakaz" Member="StatZakaz" ThisKey="id_sz" OtherKey="id_sz" Type="StatZakaz" IsForeignKey="true" DeleteRule="CASCADE" />
+    </Type>
+  </Table>
+  <Table Name="dbo.ZakDet" Member="ZakDet">
+    <Type Name="ZakDet">
+      <Column Name="id_zd" Type="System.Int32" DbType="Int NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
+      <Column Name="id_zak" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="id_det" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="col" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Association Name="Detal_ZakDet" Member="Detal" ThisKey="id_det" OtherKey="id_det" Type="Detal" IsForeignKey="true" DeleteRule="CASCADE" />
+      <Association Name="Zakaz_ZakDet" Member="Zakaz" ThisKey="id_zak" OtherKey="id_zak" Type="Zakaz" IsForeignKey="true" DeleteRule="CASCADE" />
+    </Type>
+  </Table>
+  <Table Name="dbo.ZakRab" Member="ZakRab">
+    <Type Name="ZakRab">
+      <Column Name="id_zr" Type="System.Int32" DbType="Int NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
+      <Column Name="id_zak" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="id_rab" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Association Name="Rabota_ZakRab" Member="Rabota" ThisKey="id_rab" OtherKey="id_rab" Type="Rabota" IsForeignKey="true" DeleteRule="CASCADE" />
+      <Association Name="Zakaz_ZakRab" Member="Zakaz" ThisKey="id_zak" OtherKey="id_zak" Type="Zakaz" IsForeignKey="true" DeleteRule="CASCADE" />
+    </Type>
+  </Table>
+  <Table Name="dbo.View_1" Member="View_1">
+    <Type Name="View_1">
+      <Column Name="id_det" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="naim_det" Type="System.String" DbType="VarChar(50)" CanBeNull="true" />
+      <Column Name="naim_gdet" Type="System.String" DbType="VarChar(50)" CanBeNull="true" />
+      <Column Name="col" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="cena" Type="System.Decimal" DbType="Decimal(18,2)" CanBeNull="true" />
+      <Column Name="izg" Type="System.String" DbType="VarChar(50)" CanBeNull="true" />
+      <Column Name="garant" Type="System.Int32" DbType="Int" CanBeNull="true" />
+    </Type>
+  </Table>
+  <Table Name="dbo.View_2" Member="View_2">
+    <Type Name="View_2">
+      <Column Name="id_zd" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="id_zak" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="naim_det" Type="System.String" DbType="VarChar(50)" CanBeNull="true" />
+      <Column Name="col" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="cena" Type="System.Decimal" DbType="Decimal(18,2)" CanBeNull="true" />
+    </Type>
+  </Table>
+  <Table Name="dbo.View_3" Member="View_3">
+    <Type Name="View_3">
+      <Column Name="id_zr" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="id_zak" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="naim_rab" Type="System.String" DbType="VarChar(50)" CanBeNull="true" />
+      <Column Name="stoim" Type="System.Decimal" DbType="Decimal(18,2)" CanBeNull="true" />
+    </Type>
+  </Table>
+  <Table Name="dbo.View_4" Member="View_4">
+    <Type Name="View_4">
+      <Column Name="id_zak" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="ser" Type="System.String" DbType="VarChar(50)" CanBeNull="true" />
+      <Column Name="naim_tu" Type="System.String" DbType="VarChar(50)" CanBeNull="true" />
+      <Column Name="naim_mu" Type="System.String" DbType="VarChar(50)" CanBeNull="true" />
+      <Column Name="fio_kl" Type="System.String" DbType="VarChar(50)" CanBeNull="true" />
+      <Column Name="fio_sotr" Type="System.String" DbType="VarChar(50)" CanBeNull="true" />
+      <Column Name="date_p" Type="System.DateTime" DbType="Date" CanBeNull="true" />
+      <Column Name="date_v" Type="System.DateTime" DbType="Date" CanBeNull="true" />
+      <Column Name="stoim_det" Type="System.Decimal" DbType="Decimal(18,2)" CanBeNull="true" />
+      <Column Name="stoim_rab" Type="System.Decimal" DbType="Decimal(18,2)" CanBeNull="true" />
+      <Column Name="skidka" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="ob_stoim" Type="System.Decimal" DbType="Decimal(18,2)" CanBeNull="true" />
+      <Column Name="oplata" Type="System.Boolean" DbType="Bit" CanBeNull="true" />
+      <Column Name="naim_sz" Type="System.String" DbType="VarChar(50)" CanBeNull="true" />
+    </Type>
+  </Table>
+  <Table Name="dbo.View_5" Member="View_5">
+    <Type Name="View_5">
+      <Column Name="id_mu" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="naim_mu" Type="System.String" DbType="VarChar(50)" CanBeNull="true" />
+      <Column Name="naim_tu" Type="System.String" DbType="VarChar(50)" CanBeNull="true" />
+    </Type>
+  </Table>
+</Database>
